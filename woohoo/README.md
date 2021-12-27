@@ -1,6 +1,6 @@
 # Woohoo!
 
-This application illustrates some of the failure modes described by the presentation. 
+This django application illustrates some of the failure modes described by the presentation. 
 
 The postman collection provides additional runnable documentation. 
 
