@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "9e468546-4752-498e-b342-fcfb84d8ac87",
+		"name": "Ducktales",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "BlindBid",
+			"item": [
+				{
+					"name": "localhost:8000/notaduck/blindbid/",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": \"Hacker\",\n    \"bid\": 0.1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/notaduck/blindbid/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notaduck",
+								"blindbid",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8000/notaduck/whowon/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/notaduck/whowon/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notaduck",
+								"whowon",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "localhost:8000/notaduck/?vara=1&varb=1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"foo\": inf, \"q\": -inf}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/notaduck/?vara=1&varb=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"notaduck",
+						""
+					],
+					"query": [
+						{
+							"key": "vara",
+							"value": "1"
+						},
+						{
+							"key": "varb",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8000/notaduck/messages/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\": \"default\",\n    \"message_id\": NaN,\n    \"message\": \"This is the second message\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/notaduck/messages/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"notaduck",
+						"messages",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8000/notaduck/bid/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\": \"Hacker\",\n    \"bid\": NaN\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/notaduck/bid/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"notaduck",
+						"bid",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8000/notaduck/rate/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"book\": \"book1\", \"user\": \"Hacker\", \"rating\": NaN}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/notaduck/rate/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"notaduck",
+						"rate",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
