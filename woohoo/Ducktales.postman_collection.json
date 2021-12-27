@@ -546,7 +546,226 @@
 			"name": "BlindBid",
 			"item": [
 				{
-					"name": "localhost:8000/notaduck/blindbid/",
+					"name": "Zach bids $10",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const cookieJar = pm.cookies.jar();",
+									"cookieJar.clear(\"http://localhost/notaduck/rate\", function (error){",
+									"    //err",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": \"Zach\",\n    \"bid\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/notaduck/blindbids/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notaduck",
+								"blindbids",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Zach is winning",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Zach is Winning\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.winner).to.contain(\"Zach\")",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/notaduck/whowon/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notaduck",
+								"whowon",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Robert bids $100",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": \"Robert\",\n    \"bid\": 100\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/notaduck/blindbids/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notaduck",
+								"blindbids",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Robert is winning",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Robert is Winning\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.winner).to.contain(\"Robert\")",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/notaduck/whowon/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notaduck",
+								"whowon",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hacker uses Burner Bid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": \"NannyBooBoo\",\n    \"bid\": NaN\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/notaduck/blindbids/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notaduck",
+								"blindbids",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hacker bids $0.1 for himself next",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -560,14 +779,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8000/notaduck/blindbid/",
+							"raw": "localhost:8000/notaduck/blindbids/",
 							"host": [
 								"localhost"
 							],
 							"port": "8000",
 							"path": [
 								"notaduck",
-								"blindbid",
+								"blindbids",
 								""
 							]
 						}
@@ -575,7 +794,21 @@
 					"response": []
 				},
 				{
-					"name": "localhost:8000/notaduck/whowon/",
+					"name": "Hacker WINS!",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Hacker Wins!\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.winner).to.contain(\"Hacker\")",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
