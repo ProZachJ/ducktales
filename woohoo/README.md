@@ -31,7 +31,7 @@ Rate allows users to submit a rating for a book, users can only submit one revie
 
 ### /notaduck/blindbids
 
-Allows users to submit bids for a blind auction. Upon request of `GET /notaduck/whowon` the results of the auction will be tallied using sorting mechanism. An attacker can submit malious bids that interfere with the sorting and cause their own low bid to win, dispite higher bids being in the system.
+Allows users to submit bids for a blind auction. Upon request of `GET /notaduck/whowon` the results of the auction will be tallied using sorting mechanism. An attacker can submit malicious bids that interfere with the sorting and cause their own low bid to win, dispite higher bids being in the system.
 
 ### /notaduck/bid
 
