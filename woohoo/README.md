@@ -19,6 +19,8 @@ If you already have django installed you can do the typical
 
 
 ## Examples
+All the action happens here: `/woohoo/notaduck/views.py`
 
-### `curl -X POST lcoalhost:8000/notaduck/?vara=1&varb=1 -d '{"foo":123,"q":123}'`
-The base URL loads two query parameters, and two json body attributes and then applies various casts and math operations, it outputs the results (and types) so that you can get a feel for how NaN and INFs are handled.
+### Index 
+`curl -X POST localhost:8000/notaduck/?vara=1&varb=1 -d '{"foo":123,"q":123}'`
+The base URL loads two query parameters, and two json body attributes and then applies various casts and math operations, it outputs the results (and types) so that you can get a feel for how NaN and INFs are handled. 
