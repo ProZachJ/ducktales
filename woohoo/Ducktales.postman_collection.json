@@ -6,6 +6,543 @@
 	},
 	"item": [
 		{
+			"name": "Index (Playground)",
+			"item": [
+				{
+					"name": "Basic Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Body contains ints\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.foo.type).to.eql(\"int\");",
+									"    pm.expect(jsonData.q.type).to.eql(\"int\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"foo\": 123, \"q\": 123}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/notaduck/?vara=1&varb=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notaduck",
+								""
+							],
+							"query": [
+								{
+									"key": "vara",
+									"value": "1"
+								},
+								{
+									"key": "varb",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Foo is divided by Q",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"40/20 = 2\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.foo.math).to.eql(2);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"foo\": 40, \"q\": 20}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/notaduck/?vara=1&varb=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notaduck",
+								""
+							],
+							"query": [
+								{
+									"key": "vara",
+									"value": "1"
+								},
+								{
+									"key": "varb",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "\"foo\" becomes a float",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"foo\": 123.00, \"q\": 123}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/notaduck/?vara=1&varb=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notaduck",
+								""
+							],
+							"query": [
+								{
+									"key": "vara",
+									"value": "1"
+								},
+								{
+									"key": "varb",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "\"foo\" becomes a \"float\"",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Math is now NaN, which actually (should) breaks JavaScript/JSON\", function () {",
+									"    //just trying to read the response will error because NaN isn't valid json.",
+									"    var jsonData = pm.response.json();",
+									"    //pm.expect(jsonData.foo.math).to.eql(jsonData.foo.math);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"foo\": NaN, \"q\": 123}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/notaduck/?vara=1&varb=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notaduck",
+								""
+							],
+							"query": [
+								{
+									"key": "vara",
+									"value": "1"
+								},
+								{
+									"key": "varb",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "The base URL loads two query parameters, and two json body attributes and then applies various casts and math operations, it outputs the results (and types) so that you can get a feel for how NaN and INFs are handled."
+		},
+		{
+			"name": "Book Ratings",
+			"item": [
+				{
+					"name": "Zach rates book1 five stars",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Book1 is highest rated with 5 stars\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.book1).to.eql(5);",
+									"    pm.expect(jsonData.highest_rated).to.eql(\"book1\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const cookieJar = pm.cookies.jar();",
+									"cookieJar.clear(\"http://localhost/notaduck/rate\", function (error){",
+									"    //err",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"book\": \"book1\", \"user\": \"Zach\", \"rating\": 5}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/notaduck/rate/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notaduck",
+								"rate",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Robert rates book1 four stars",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Book1 is highest rated with average of 4.5 stars\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.book1).to.eql(4.5);",
+									"    pm.expect(jsonData.highest_rated).to.eql(\"book1\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"book\": \"book1\", \"user\": \"Robert\", \"rating\": 4}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/notaduck/rate/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notaduck",
+								"rate",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Robert rates book2 one star",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Book1 is highest rated with average of 4.5 stars, book2 1 star\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.book1).to.eql(4.5);",
+									"    pm.expect(jsonData.book2).to.eql(1);",
+									"    pm.expect(jsonData.highest_rated).to.eql(\"book1\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"book\": \"book2\", \"user\": \"Robert\", \"rating\": 1}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/notaduck/rate/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notaduck",
+								"rate",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Zach rates book2 two stars",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Book1 is highest rated with average of 4.5 stars, book2 1.5 star avg\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.book1).to.eql(4.5);",
+									"    pm.expect(jsonData.book2).to.eql(1.5);",
+									"    pm.expect(jsonData.highest_rated).to.eql(\"book1\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"book\": \"book2\", \"user\": \"Zach\", \"rating\": 2}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/notaduck/rate/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notaduck",
+								"rate",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hacker rates book2 five stars",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Hacker has no power here! Book1 is highest rated with average of 4.5 stars, book2 2.6 star avg\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.book1).to.eql(4.5);",
+									"    pm.expect(jsonData.book2).to.be.closeTo(2.666, 0.001)",
+									"    pm.expect(jsonData.highest_rated).to.eql(\"book1\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"book\": \"book2\", \"user\": \"Hacker\", \"rating\": 5}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/notaduck/rate/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notaduck",
+								"rate",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hacker rates book1 NaN stars",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"WAT??? Book2? is highest rated?\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.book1).to.eql(4.5);",
+									"    pm.expect(jsonData.book2).to.eql(2.6);",
+									"    pm.expect(jsonData.highest_rated).to.eql(\"book1\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"book\": \"book1\", \"user\": \"Hacker\", \"rating\": NaN}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/notaduck/rate/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notaduck",
+								"rate",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
 			"name": "BlindBid",
 			"item": [
 				{
@@ -60,129 +597,72 @@
 			]
 		},
 		{
-			"name": "localhost:8000/notaduck/?vara=1&varb=1",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"foo\": inf, \"q\": -inf}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8000/notaduck/?vara=1&varb=1",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"notaduck",
-						""
-					],
-					"query": [
-						{
-							"key": "vara",
-							"value": "1"
+			"name": "Messages",
+			"item": [
+				{
+					"name": "localhost:8000/notaduck/messages/",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": \"default\",\n    \"message_id\": NaN,\n    \"message\": \"This is the third message\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						{
-							"key": "varb",
-							"value": "1"
+						"url": {
+							"raw": "localhost:8000/notaduck/messages/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notaduck",
+								"messages",
+								""
+							]
 						}
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "localhost:8000/notaduck/messages/",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"user\": \"default\",\n    \"message_id\": NaN,\n    \"message\": \"This is the second message\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Bid",
+			"item": [
+				{
+					"name": "localhost:8000/notaduck/bid/",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": \"Hacker\",\n    \"bid\": NaN\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/notaduck/bid/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notaduck",
+								"bid",
+								""
+							]
 						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8000/notaduck/messages/",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"notaduck",
-						"messages",
-						""
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:8000/notaduck/bid/",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"user\": \"Hacker\",\n    \"bid\": NaN\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8000/notaduck/bid/",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"notaduck",
-						"bid",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:8000/notaduck/rate/",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"book\": \"book1\", \"user\": \"Hacker\", \"rating\": NaN}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8000/notaduck/rate/",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"notaduck",
-						"rate",
-						""
-					]
-				}
-			},
-			"response": []
+			]
 		}
 	]
 }
